@@ -36,6 +36,7 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script src="./static/js/reward-viz.js"></script>
 
   <script>
     window.MathJax = {
@@ -244,6 +245,49 @@
             We evaluate SVM rewards in the RL finetuning regime on the $\texttt{LIBERO}$ benchmarks and $\texttt{RoboCasa}$ pick-and-place tasks, using DSRL and Residual RL as the finetuning algorithms. Across all tasks, SVM rewards lead to significantly faster finetuning compared to finetuning on only outcome rewards, as well as other reward shaping baselines.
           </p>
         </div>
+        <figure class="reward-viz-figure">
+          <div class="reward-viz-row">
+            <div class="reward-viz-item">
+              <p class="reward-viz-task-label">Open the bottom drawer</p>
+              <div class="reward-viz-container">
+                <img class="reward-viz-frame" data-task="6" src="./static/images/task6/reward_frames/ck_0.png" alt="SVM reward trajectories: open the bottom drawer">
+              </div>
+            </div>
+            <div class="reward-viz-item">
+              <p class="reward-viz-task-label">Open the top drawer</p>
+              <div class="reward-viz-container">
+                <img class="reward-viz-frame" data-task="7" src="./static/images/task7/reward_frames/ck_0.png" alt="SVM reward trajectories: open the top drawer ">
+              </div>
+            </div>
+            <div class="reward-viz-item">
+              <p class="reward-viz-task-label">Put the black bowl on the plate</p>
+              <div class="reward-viz-container">
+                <img class="reward-viz-frame" data-task="9" src="./static/images/task9/reward_frames/ck_0.png" alt="SVM reward trajectories: put the black bowl on the plate">
+              </div>
+            </div>
+            <div class="reward-viz-item">
+              <p class="reward-viz-task-label">Put the moka pot on the stove</p>
+              <div class="reward-viz-container">
+                <img class="reward-viz-frame" data-task="19" src="./static/images/task19/reward_frames/ck_0.png" alt="SVM reward trajectories: put the moka pot on the stove">
+              </div>
+            </div>
+            <div class="reward-viz-item">
+              <p class="reward-viz-task-label">Turn on the stove</p>
+              <div class="reward-viz-container">
+                <img class="reward-viz-frame" data-task="20" src="./static/images/task20/reward_frames/ck_0.png" alt="SVM reward trajectories: turn on the stove">
+              </div>
+            </div>
+          </div>
+          <div class="reward-viz-controls">
+            <input type="range" id="reward-viz-slider" class="reward-viz-slider" min="0" max="13" value="0" step="1">
+            <p class="reward-viz-step" id="reward-viz-step">Training step: 0</p>
+          </div>
+          <div class="reward-viz-colorbar">
+            <span class="reward-viz-colorbar-label">−20</span>
+            <div class="reward-viz-colorbar-gradient"></div>
+            <span class="reward-viz-colorbar-label">+20</span>
+          </div>
+        </figure>
         <h3 class="title is-4 result-subtitle">SVM Process Rewards Enable Efficient Real-World RL</h3>
         <figure class="result-figure">
           <img class="result-img-inset" src="./static/images/widowx.png" alt="Real-world WidowX robot results for pick and place, open drawer, and cover knife tasks">

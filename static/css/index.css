@@ -259,6 +259,91 @@ body {
   text-align: center;
 }
 
+.reward-viz-figure {
+  margin: 1.5rem auto 2rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.reward-viz-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.reward-viz-item {
+  flex: 1;
+  min-width: 0;
+  max-width: 20%;
+}
+
+.reward-viz-task-label {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 0.1rem;
+  line-height: 1.25;
+  min-height: 2.5em;
+  transform: translateY(0.5rem);
+}
+
+.reward-viz-container {
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.reward-viz-frame {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.reward-viz-controls {
+  margin-top: 0.75rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reward-viz-slider {
+  width: 100%;
+  cursor: pointer;
+}
+
+.reward-viz-step {
+  margin-top: 0.35rem;
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.reward-viz-colorbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.reward-viz-colorbar-gradient {
+  width: 160px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #2166ac, #f7f7f7, #b2182b);
+}
+
+.reward-viz-colorbar-label {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #666;
+}
+
 .sim-results-legend {
   display: block;
   max-width: 80%;
