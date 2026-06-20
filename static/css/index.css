@@ -140,7 +140,8 @@ body {
   padding-top: 0.5rem;
 }
 
-.method-figure img {
+.method-figure img,
+.method-figure video {
   width: 100%;
   border-radius: 10px;
 }
