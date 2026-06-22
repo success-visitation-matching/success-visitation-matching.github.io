@@ -554,3 +554,41 @@ body {
   margin: 1.5rem 0;
   background: #fff;
 }
+
+.result-video-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.result-video-item {
+  flex: 1;
+  max-width: 48%;
+}
+
+.result-video-item video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.result-video-row-single {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.result-video-item-large {
+  width: 60%;
+}
+
+.result-video-item-large video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.result-video-caption {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.95rem;
+}

@@ -16,7 +16,7 @@ $(document).ready(function() {
       var task = $(this).data('task');
       $(this).attr('src', './static/images/task' + task + '/reward_frames/ck_' + ck + '.png');
     });
-    $step.text('Training step: ' + ck.toLocaleString());
+    $step.text('Environment steps: ' + ck.toLocaleString());
   }
 
   $slider.on('input', function() {

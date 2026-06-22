@@ -134,7 +134,7 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <figure class="method-figure has-text-centered">
-          <video autoplay loop muted playsinline>
+          <video autoplay loop muted playsinline controls>
             <source src="./static/images/svm.mp4" type="video/mp4">
           </video>
         </figure>
@@ -146,7 +146,7 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            In many modern applications of reinforcement learning (RL), the natural reward for a task of interest is inherently <i>sparse</i>: a reward of 0 is given everywhere except when the task is completed, when a reward of +1 is given. Training a policy to maximize such a sparse reward requires solving a challenging credit assignment problem, leading to slow or ineffective RL improvement. We propose a simple approach to transform a sparse \emph{outcome} reward into a dense <i>process</i> reward. Our approach relies on training a discriminator to distinguish between previous successful and unsuccessful trajectories, and using this discriminator to incentivize the RL-learned policy to match the state-action visitations of successful trajectories, while avoiding those of unsuccessful trajectories. By incentivizing the policy to match the visitations over all states, not just those that correspond to task success, this reward provides dense feedback on whether progress is being made towards task completion, and, we show, provably achieves this without changing the optimal policy. Focusing on finetuning of robotic control policies, we demonstrate that our approach leads to significantly faster RL finetuning performance on both simulated and real-world manipulation tasks, as compared to simply maximizing the sparse outcome reward.
+            In many modern applications of reinforcement learning (RL), the natural reward for a task of interest is inherently <i>sparse</i>: a reward of 0 is given everywhere except when the task is completed, when a reward of +1 is given. Training a policy to maximize such a sparse reward requires solving a challenging credit assignment problem, leading to slow or ineffective RL improvement. We propose a simple approach to transform a sparse <i>outcome</i> reward into a dense <i>process</i> reward. Our approach relies on training a discriminator to distinguish between previous successful and unsuccessful episodes, and using this discriminator to incentivize the RL-learned policy to match the state-action visitations of successful episodes, while avoiding those of unsuccessful episodes. By incentivizing the policy to match the visitations over all states, not just those that correspond to task success, this reward provides dense feedback on whether progress is being made towards task completion, and, we show, provably achieves this without changing the optimal policy. Focusing on finetuning of robotic control policies, we demonstrate that our approach leads to significantly faster RL finetuning performance on both simulated and real-world manipulation tasks, as compared to simply maximizing the sparse outcome reward.
           </p>
         </div>
       </div>
@@ -175,7 +175,7 @@
             (b) Peserves the optimal policies under the original outcome reward.
           </p>
           <p>
-            Our approach is based on a simple principle: given past trajectories labeled by outcome reward $r^{\mathrm{out}}$, reward the learner for visiting state-actions that are associated with successful episodes, and penalize those associated with unsuccessful episodes. Concretely, denoting $\mathfrak{D}^+$ and $\mathfrak{D}^-$ the state-action pairs from successful and unsuccessful trajectories, respectively, we train a discriminator to distinguish these two sets:
+            Our approach is based on a simple principle: given past episodes labeled by outcome reward $r^{\mathrm{out}}$, reward the learner for visiting state-actions that are associated with successful episodes, and penalize those associated with unsuccessful episodes. Concretely, denoting $\mathfrak{D}^+$ and $\mathfrak{D}^-$ the state-action pairs from successful and unsuccessful episodes, respectively, we train a discriminator to distinguish these two sets:
             
             $$\widehat{f}(s,a) = {\text{argmin}_{f}}\; \mathbb{E}_{(s, a)\sim \mathfrak{D}^+} [\log f(s,a)]+ \mathbb{E}_{(s, a)\sim \mathfrak{D}^-}[\log (1-f(s,a))]$$
             
@@ -183,7 +183,7 @@
             
             $$r^{\mathrm{svm}}(s,a)= r^{\mathrm{out}}(s) + \lambda \cdot \mathrm{clip}_\beta \left ( \log \frac{\widehat{f}(s,a)}{1-\widehat{f}(s,a)} \right )$$
             
-            where $\mathrm{clip}_\beta(\cdot)$ clips the value to be within the range $[-\beta,\beta]$. This yields a dense process reward that encourages the learner to visit states likely to lead to success based on past observations---states where $\widehat{f}(s,a)$ is large---while balancing this with the true outcome reward. We show the following:
+            where $\mathrm{clip}_\beta(\cdot)$ clips the value to be within the range $[-\beta,\beta]$. This yields a dense process reward that encourages the learner to visit states likely to lead to success based on past observations—states where $\widehat{f}(s,a)$ is large—while balancing this with the true outcome reward. We show the following:
 
             <div class="theorem-box">
               <strong>Theorem (informal).</strong>
@@ -245,6 +245,10 @@
           <p>
             We evaluate SVM rewards in the RL finetuning regime on the $\texttt{LIBERO}$ benchmarks and $\texttt{RoboCasa}$ pick-and-place tasks, using DSRL and Residual RL as the finetuning algorithms. Across all tasks, SVM rewards lead to significantly faster finetuning compared to finetuning on only outcome rewards, as well as other reward shaping baselines.
           </p>
+
+          <p>
+            To understand what the SVM reward learns, we visualize the reward values along several trajectories throughout training on five different $\texttt{LIBERO}$ tasks. We see that after a relatively small number of environment steps collected during training, the SVM reward has already converged to rewarding trajectories that are close to the optimal behavior, while penalizing trajectories that deviate from this.
+          </p>
         </div>
         <figure class="reward-viz-figure">
           <div class="reward-viz-row">
@@ -281,7 +285,7 @@
           </div>
           <div class="reward-viz-controls">
             <input type="range" id="reward-viz-slider" class="reward-viz-slider" min="0" max="13" value="0" step="1">
-            <p class="reward-viz-step" id="reward-viz-step">Training step: 0</p>
+            <p class="reward-viz-step" id="reward-viz-step">Environment steps: 0</p>
           </div>
           <div class="reward-viz-colorbar">
             <span class="reward-viz-colorbar-label">−20</span>
@@ -291,7 +295,11 @@
         </figure>
         <h3 class="title is-4 result-subtitle">SVM Process Rewards Enable Efficient Real-World RL</h3>
         <figure class="result-figure">
-          <img class="result-img-inset" src="./static/images/widowx.png" alt="Real-world WidowX robot results for pick and place, open drawer, and cover knife tasks">
+          <img class="result-img-inset"
+               src="./static/images/widowx.png"
+               alt="Real-world WidowX robot results for pick and place, open drawer, and cover knife tasks">
+
+          <!-- Top row -->
           <div class="result-video-row">
             <div class="result-video-item">
               <video autoplay loop muted playsinline controls>
@@ -299,17 +307,22 @@
               </video>
               <p class="result-video-caption">RL finetuning with outcome reward</p>
             </div>
-            <div class="result-video-item">
-              <video autoplay loop muted playsinline controls>
-                <source src="./static/videos/widowx.mp4" type="video/mp4">
-              </video>
-              <p class="result-video-caption">DSRL training timelapse</p>
-            </div>
+
             <div class="result-video-item">
               <video autoplay loop muted playsinline controls>
                 <source src="./static/videos/svm_montage.mp4" type="video/mp4">
               </video>
               <p class="result-video-caption">RL finetuning with SVM reward</p>
+            </div>
+          </div>
+
+          <!-- Bottom row -->
+          <div class="result-video-row-single">
+            <div class="result-video-item-large">
+              <video autoplay loop muted playsinline controls>
+                <source src="./static/videos/widowx.mp4" type="video/mp4">
+              </video>
+              <p class="result-video-caption">DSRL training timelapse</p>
             </div>
           </div>
         </figure>
